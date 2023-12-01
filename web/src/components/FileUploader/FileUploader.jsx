@@ -34,8 +34,10 @@ const FileUploader = ({onFileUpload}) => {
             path: file.name,
             buffer: Buffer.from(binaryStr).toString('base64'),
           },
-        };
+        }
+
         await createFile({variables: { input }})
+
         onFileUpload(input)
       }
 

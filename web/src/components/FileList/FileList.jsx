@@ -11,7 +11,7 @@ const FileList = ({ files }) => {
       <ul>
       {files.map((file) => (
           <li key={file.id}>
-            <a href={`/files/${file.id}/edit`}>
+            <a href={`/files/${file.id}`}>
               {file.name}
             </a>
           </li>

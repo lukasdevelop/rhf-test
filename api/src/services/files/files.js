@@ -13,30 +13,39 @@ export const file = ({ id }) => {
 };
 
 export const createFile = async ({ input }) => {
-  const { name, file } = input;
+  const { name, file } = input
 
-  const uploadDirectory = path.join(__dirname, '../../../../web/public/uploads');
-  const filePath = path.join(uploadDirectory, name);
+  const uploadDirectory = path.join(__dirname, '../../../../web/public/uploads')
+  const filePath = path.join(uploadDirectory, name)
 
   try {
-    await fs.mkdir(uploadDirectory, { recursive: true });
+    const fileExists = await fs.access(filePath).then(() => true).catch(() => false)
 
-    console.log('Tentando escrever no sistema de arquivos:', filePath);
+    if(!fileExists){
 
-    await fs.writeFile(filePath, file.buffer);
+      await fs.mkdir(uploadDirectory, { recursive: true });
+
+      console.log('Tentando escrever no sistema de arquivos:', filePath);
+
+      await fs.writeFile(filePath, file.buffer)
+
+      const data = {
+        name,
+        url: `/uploads/${name}`,
+      }
+
+      return db.file.create({
+        data,
+      })
+
+    }else {
+      console.log('O arquivo já existe. Upload ignorado.')
+
+    }
   } catch (error) {
-    console.error('Erro ao escrever no sistema de arquivos:', error);
+    console.error('Erro ao escrever no sistema de arquivos:', error)
     throw error
   }
-
-  const data = {
-    name,
-    url: `/uploads/${name}`,
-  };
-
-  return db.file.create({
-    data,
-  });
 };
 
 export const updateFile = ({ id, input }) => {

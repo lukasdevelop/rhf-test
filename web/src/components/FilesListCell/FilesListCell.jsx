@@ -33,7 +33,10 @@ const FilesListCell = () => {
   }
 
   const handleFileUpload = (newFile) => {
-    const latestId = data.filesList[data.filesList.length - 1]?.id + 1;
+    const latestId =
+      data.filesList && data.filesList.length > 0
+      ? data.filesList[data.filesList.length - 1]?.id + 1
+      : 1;
 
     const updatedFile = { ...newFile, id: latestId}
 
