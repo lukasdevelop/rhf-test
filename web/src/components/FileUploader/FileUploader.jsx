@@ -1,7 +1,6 @@
 import { useDropzone } from 'react-dropzone';
 import { useMutation } from '@redwoodjs/web';
 import { useCallback } from 'react'
-import FilesListCell from 'src/components/FilesListCell'
 
 const CREATE_FILE = gql`
   mutation($input: CreateFileInput!){
@@ -12,7 +11,7 @@ const CREATE_FILE = gql`
   }
 `
 
-const FileUploader = () => {
+const FileUploader = ({onFileUpload}) => {
   const [createFile] = useMutation(CREATE_FILE)
 
   const onDrop = useCallback( (acceptedFiles) => {
@@ -35,10 +34,8 @@ const FileUploader = () => {
             buffer: Buffer.from(binaryStr).toString('base64'),
           },
         };
-
-
         await createFile({variables: { input }})
-
+        onFileUpload(input)
       }
 
       reader.readAsArrayBuffer(file)
@@ -61,7 +58,7 @@ const FileUploader = () => {
           <p>Drag 'n' drop some files here, or click to select files</p>
       }
       </div>
-      <FilesListCell />
+
     </div>
   )
 }
