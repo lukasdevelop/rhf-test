@@ -15,6 +15,7 @@ import FileList from '../FileList/FileList';
 
 const FilesListCell = () => {
   const { data, loading, error } = useQuery(QUERY);
+
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
@@ -32,7 +33,11 @@ const FilesListCell = () => {
   }
 
   const handleFileUpload = (newFile) => {
-    setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
+    const latestId = data.filesList[data.filesList.length - 1]?.id + 1;
+
+    const updatedFile = { ...newFile, id: latestId}
+
+    setUploadedFiles((prevFiles) => [...prevFiles, updatedFile]);
   };
 
   return (

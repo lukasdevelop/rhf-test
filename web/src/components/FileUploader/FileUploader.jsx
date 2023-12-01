@@ -27,6 +27,7 @@ const FileUploader = ({onFileUpload}) => {
         const binaryStr = reader.result
 
         const input = {
+          id: file.id,
           name: file.name,
           url: file.name,
           file: {

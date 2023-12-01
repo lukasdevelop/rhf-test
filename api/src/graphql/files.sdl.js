@@ -1,13 +1,12 @@
 export const schema = gql`
+
+scalar Upload
+
   type File {
     id: Int!
     name: String!
     url: String!
   }
-
-  scalar Upload
-
-
   type Query {
     files: [File!]! @requireAuth
     file(id: Int!): File @requireAuth
