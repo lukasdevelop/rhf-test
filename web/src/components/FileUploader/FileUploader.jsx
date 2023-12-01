@@ -15,38 +15,51 @@ const CREATE_FILE = gql`
 const FileUploader = () => {
   const [createFile] = useMutation(CREATE_FILE)
 
-  const onDrop = useCallback( async (acceptedFiles) => {
-    const file = acceptedFiles[0]
+  const onDrop = useCallback( (acceptedFiles) => {
 
-    try{
-      const input = {
-        name: file.name,
-        url: file.name,
-        file: {
-          filename: file.name,
-          mimetype: file.type,
-          encoding: 'base64', // ou o encoding apropriado para o seu caso
-        },
-      };
-      await createFile({variables: { input }})
-      console.log('Upload feito com sucesso.', acceptedFiles)
+    acceptedFiles.forEach((file) => {
 
-    }catch(error){
-      console.log('Error', error)
+      const reader = new FileReader()
 
-    }
+      reader.onabort = () => console.log('file reading was aborted')
+      reader.onerror = () => console.log('file reading has failed')
+      reader.onload = async () => {
+
+        const binaryStr = reader.result
+
+        const input = {
+          name: file.name,
+          url: file.name,
+          file: {
+            path: file.name,
+            buffer: Buffer.from(binaryStr).toString('base64'),
+          },
+        };
+
+
+        await createFile({variables: { input }})
+
+      }
+
+      reader.readAsArrayBuffer(file)
+
+    })
     },
     [createFile]
   )
 
-  const {getRootProps, getInputProps } = useDropzone({ onDrop })
+  const {getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
     <div>
       <h2>Uploader</h2>
       <div {...getRootProps()} style={{ border: '1px solid #ccc'}}>
         <input {...getInputProps()} />
-        <p>Arraste e solte arquivos aqui ou clique para selecionar</p>
+        {
+        isDragActive ?
+          <p>Drop the files here ...</p> :
+          <p>Drag 'n' drop some files here, or click to select files</p>
+      }
       </div>
       <FilesListCell />
     </div>

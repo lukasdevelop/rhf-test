@@ -5,6 +5,9 @@ export const schema = gql`
     url: String!
   }
 
+  scalar Upload
+
+
   type Query {
     files: [File!]! @requireAuth
     file(id: Int!): File @requireAuth
@@ -13,6 +16,7 @@ export const schema = gql`
   input CreateFileInput {
     name: String!
     url: String!
+    file: Upload!
   }
 
   input UpdateFileInput {
@@ -26,15 +30,5 @@ export const schema = gql`
     deleteFile(id: Int!): File! @requireAuth
   }
 
-  input CreateFileInput {
-    name: String!
-    file: UploadFileInput!
-  }
-
-  input UploadFileInput {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
 
 `
