@@ -20,6 +20,7 @@ const Routes = () => {
         <Route path="/files/{id:Int}" page={FileFilePage} name="file" />
         <Route path="/files" page={FileFilesPage} name="files" />
       </Set>
+      <Route path="/" page={HomePage} name="home" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )
