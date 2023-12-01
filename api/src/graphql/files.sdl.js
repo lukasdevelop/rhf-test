@@ -25,4 +25,16 @@ export const schema = gql`
     updateFile(id: Int!, input: UpdateFileInput!): File! @requireAuth
     deleteFile(id: Int!): File! @requireAuth
   }
+
+  input CreateFileInput {
+    name: String!
+    file: UploadFileInput!
+  }
+
+  input UploadFileInput {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+
 `
