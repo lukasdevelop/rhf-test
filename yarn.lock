@@ -20220,6 +20220,7 @@ __metadata:
     "@redwoodjs/web": 6.4.1
     "@types/react": 18.2.37
     "@types/react-dom": 18.2.15
+    humanize-string: 2.1.0
     prop-types: 15.8.1
     react: 18.2.0
     react-dom: 18.2.0
