@@ -22,6 +22,8 @@
   },
   "packageManager": "yarn@3.7.0",
   "dependencies": {
-    "@types/react-dropzone": "^5.1.0"
+    "@aws-sdk/client-s3": "^3.462.0",
+    "@types/react-dropzone": "^5.1.0",
+    "aws-sdk": "^2.1509.0"
   }
 }
