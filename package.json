@@ -24,6 +24,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.462.0",
     "@types/react-dropzone": "^5.1.0",
-    "aws-sdk": "^2.1509.0"
+    "aws-sdk": "^2.1509.0",
+    "diff": "^5.1.0"
   }
 }
