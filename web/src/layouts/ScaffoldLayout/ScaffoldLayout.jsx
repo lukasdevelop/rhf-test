@@ -18,7 +18,7 @@ const ScaffoldLayout = ({
           </Link>
         </h1>
         <Link to={routes[buttonTo]()} className="rw-button rw-button-green">
-          <div className="rw-button-icon">+</div> {buttonLabel}
+          <div className="rw-button-icon">X</div> {buttonLabel}
         </Link>
       </header>
       <main className="rw-main">{children}</main>

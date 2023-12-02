@@ -1,0 +1,21 @@
+.fileuploader p {
+  width: 100%;
+    background: var(--gray-800);
+    border: 2px dotted var(--gray-100);
+    height: 4rem;
+    border-radius: 8px;
+    color: var(--gray-100);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    text-align: center;
+    display: block;
+    justify-content: center;
+    font-size: large;
+    cursor: pointer;
+}
+
+.fileuploader :hover {
+  color: var(--green-300);
+  border: 2px dotted var(--green-300);
+}

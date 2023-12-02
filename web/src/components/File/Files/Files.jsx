@@ -40,7 +40,7 @@ const FilesList = ({ files }) => {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Nome</th>
             <th>Url</th>
             <th>&nbsp;</th>
           </tr>
@@ -58,14 +58,14 @@ const FilesList = ({ files }) => {
                     title={'Show file ' + file.id + ' detail'}
                     className="rw-button rw-button-small"
                   >
-                    Show
+                    Visualizar
                   </Link>
                   <Link
                     to={routes.editFile({ id: file.id })}
                     title={'Edit file ' + file.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >
-                    Edit
+                    Editar
                   </Link>
                   <button
                     type="button"
@@ -73,7 +73,7 @@ const FilesList = ({ files }) => {
                     className="rw-button rw-button-small rw-button-red"
                     onClick={() => onDeleteClick(file.id)}
                   >
-                    Delete
+                    Deletar
                   </button>
                 </nav>
               </td>

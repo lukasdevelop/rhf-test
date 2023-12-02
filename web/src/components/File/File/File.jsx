@@ -15,7 +15,7 @@ const DELETE_FILE_MUTATION = gql`
 const File = ({ file }) => {
   const [deleteFile] = useMutation(DELETE_FILE_MUTATION, {
     onCompleted: () => {
-      toast.success('File deleted')
+      toast.success('Arquivo deletado')
       navigate(routes.files())
     },
     onError: (error) => {
@@ -24,7 +24,7 @@ const File = ({ file }) => {
   })
 
   const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete file ' + id + '?')) {
+    if (confirm('Tem certeza que deseja deletar esse arquivo ' + id + '?')) {
       deleteFile({ variables: { id } })
     }
   }
@@ -34,7 +34,7 @@ const File = ({ file }) => {
       <div className="rw-segment">
         <header className="rw-segment-header">
           <h2 className="rw-heading rw-heading-secondary">
-            File {file.id} Detail
+            Arquivo {file.id} Detalhes
           </h2>
         </header>
         <table className="rw-table">
@@ -44,7 +44,7 @@ const File = ({ file }) => {
               <td>{file.id}</td>
             </tr>
             <tr>
-              <th>Name</th>
+              <th>Nome</th>
               <td>{file.name}</td>
             </tr>
             <tr>
@@ -59,14 +59,14 @@ const File = ({ file }) => {
           to={routes.editFile({ id: file.id })}
           className="rw-button rw-button-blue"
         >
-          Edit
+          Editar
         </Link>
         <button
           type="button"
           className="rw-button rw-button-red"
           onClick={() => onDeleteClick(file.id)}
         >
-          Delete
+          Deletar
         </button>
       </nav>
     </>

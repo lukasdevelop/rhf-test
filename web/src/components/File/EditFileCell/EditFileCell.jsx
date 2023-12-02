@@ -33,7 +33,7 @@ export const Failure = ({ error }) => (
 export const Success = ({ file }) => {
   const [updateFile, { loading, error }] = useMutation(UPDATE_FILE_MUTATION, {
     onCompleted: () => {
-      toast.success('File updated')
+      toast.success('Arquivo editado')
       navigate(routes.files())
     },
     onError: (error) => {
@@ -49,7 +49,7 @@ export const Success = ({ file }) => {
     <div className="rw-segment">
       <header className="rw-segment-header">
         <h2 className="rw-heading rw-heading-secondary">
-          Edit File {file?.id}
+          Editar arquivo {file?.id}
         </h2>
       </header>
       <div className="rw-segment-main">

@@ -1,6 +1,7 @@
 import { useDropzone } from 'react-dropzone';
 import { useMutation } from '@redwoodjs/web';
 import { useCallback } from 'react'
+import styles from 'src/components/FileUploader/FileUploader.module.css'
 
 const CREATE_FILE = gql`
   mutation($input: CreateFileInput!){
@@ -52,13 +53,12 @@ const FileUploader = ({onFileUpload}) => {
 
   return (
     <div>
-      <h2>Uploader</h2>
-      <div {...getRootProps()} style={{ border: '1px solid #ccc'}}>
+      <div {...getRootProps()} className={styles.fileuploader}>
         <input {...getInputProps()} />
         {
         isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <p>Solte seus arquivos aqui ...</p> :
+          <p>Arraste e solte seus arquivos aqui, ou clique para seleciona-los</p>
       }
       </div>
 

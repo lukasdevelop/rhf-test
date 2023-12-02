@@ -17,9 +17,9 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => {
   return (
     <div className="rw-text-center">
-      {'No files yet. '}
+      {'Sem arquivos ainda '}
       <Link to={routes.newFile()} className="rw-link">
-        {'Create one?'}
+        {'Criar um arquivo?'}
       </Link>
     </div>
   )

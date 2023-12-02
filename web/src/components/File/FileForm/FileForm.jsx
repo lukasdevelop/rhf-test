@@ -27,7 +27,7 @@ const FileForm = (props) => {
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Name
+          Nome
         </Label>
 
         <TextField
@@ -60,7 +60,7 @@ const FileForm = (props) => {
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
+            Salvar
           </Submit>
         </div>
       </Form>

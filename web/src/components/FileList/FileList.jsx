@@ -1,23 +1,34 @@
-const FileList = ({ files }) => {
+import React, { useState } from 'react'
+import styles from 'src/components/FileList/FileList.module.css'
 
-  if (!files) {
-    return <div>Loading...</div>;
+const FileList = ({ files }) => {
+  const [loading, setLoading] = useState(!files)
+
+  if (loading) {
+    return <div>Loading...</div>
   }
 
   return (
-    <div>
-      {console.log(files)}
-      <h2>Lista de Arquivos</h2>
-      <ul>
-      {files.map((file) => (
-          <li key={file.id}>
-            <a href={`/files/${file.id}`}>
-              {file.name}
-            </a>
-          </li>
-        ))}
+    <div className={styles.filelist}>
+      {files.length === 0 ? (
+        <h2>Nenhum arquivo até o momento, faça o upload do seu primeiro arquivo</h2>
+      ) : (
+        <>
+          <h3>Seus arquivos ↓ </h3>
+          <ul>
+            {files.map((file) => (
 
-      </ul>
+                <li key={file.id}>
+                  <div className={styles.content}>
+                    {file.name}
+                    <a href={`/files/${file.id}`}> ➤ Visualizar</a>
+                  </div>
+                </li>
+
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
