@@ -71,7 +71,7 @@ export const createFile = async ({ input }) => {
     if (!(await fileExistsInS3(key))) {
       const data = {
         name: key,
-        url: `/uploads/${key}`,
+        url: `https://${bucketName}.s3.amazonaws.com/${key}`,
         version: currentVersion,
       };
 
@@ -90,7 +90,7 @@ export const createFile = async ({ input }) => {
         const newKey = `${name}-v${currentVersion + 1}`;
         const data = {
           name: newKey,
-          url: `/uploads/${newKey}`,
+          url: `https://${bucketName}.s3.amazonaws.com/${newKey}`,
           version: currentVersion + 1,
         };
 
