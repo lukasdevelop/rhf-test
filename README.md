@@ -53,3 +53,7 @@ Abaixo segue as instrucoes do teste:
 > - 4. Fazer um aplicativo que faz versão no S3. O usuário faz o upload de um filé usando GraphQL é uma versão diferente é criada e armazenada no S3. Toda vez que o arquivo for feito o upload e o diff entre as versões. Numa diferente versão deve aparecer, por exemplo, a primeira versão V1, segunda V2. Se não houver diferença entre conteúdo, não haverá mudança. A resposta aparecerá no payload do response to request.
 >
 > - 5. Fazer o upload do code em um repositório GitHub publico, com um README.md com as instruções de como executar.
+
+## Contato
+
+Muito obrigado pela oportunidade, segue meu linkedin para mais informacoes e esclarecimento de duvidas: https://www.linkedin.com/in/lucas-amaral-dev/
