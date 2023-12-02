@@ -18,9 +18,9 @@ Rode as migrations do banco local:
 ```
 yarn rw prisma migrate dev
 
-# ...
+```
 
-Start o server em desenvolvimento:
+Starter o server em desenvolvimento:
 
 ```
 yarn redwood dev
@@ -33,6 +33,6 @@ Substitua o arquivo .env.example para .env e preencha o valor das variaveis de a
 ```.env
  AWS_ACCESS_KEY_ID=
  AWS_SECRET_ACCESS_KEY=
-
+AWS_BUCKET_NAME=
 ```
 
