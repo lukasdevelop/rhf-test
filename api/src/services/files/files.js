@@ -1,7 +1,8 @@
 import { db } from 'src/lib/db';
 import fs from 'fs/promises';
 import path from 'path';
-import { S3Client, HeadObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, HeadObjectCommand, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import bufferEqualConstantTime from 'buffer-equal-constant-time'
 
 const s3Client = new S3Client({
   credentials: {
@@ -13,15 +14,6 @@ const s3Client = new S3Client({
 
 const bucketName = 'rhf-test-bucket';
 
-const uploadFileToS3 = async (key, buffer) => {
-  await s3Client.send(
-    new PutObjectCommand({
-      Bucket: bucketName,
-      Key: key,
-      Body: buffer,
-    })
-  );
-};
 
 export const files = () => {
   return db.file.findMany();
@@ -32,6 +24,30 @@ export const file = ({ id }) => {
     where: { id },
   });
 };
+
+
+const uploadFileToS3 = async (key, buffer) => {
+  await s3Client.send(new PutObjectCommand({ Bucket: bucketName, Key: key, Body: buffer }));
+};
+
+const getFileBufferFromS3 = async (key) => {
+  const response = await s3Client.send(new GetObjectCommand({ Bucket: bucketName, Key: key }));
+  const chunks = [];
+  for await (const chunk of response.Body) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks);
+};
+
+const fileExistsInS3 = async (key) => {
+  try {
+    await s3Client.send(new HeadObjectCommand({ Bucket: bucketName, Key: key }));
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 
 export const createFile = async ({ input }) => {
   const { name, file } = input;
@@ -50,17 +66,9 @@ export const createFile = async ({ input }) => {
     });
 
     const currentVersion = latestVersionInDB ? latestVersionInDB.version : 1;
+    const key = `${name}-v${currentVersion}`;
 
-    const key = `${name}-v${currentVersion}`
-
-    const fileExistsInS3 = await s3Client.send(
-      new HeadObjectCommand({
-        Bucket: bucketName,
-        Key: key,
-      })
-    ).then(() => true).catch(() => false)
-
-    if (!fileExistsInS3) {
+    if (!(await fileExistsInS3(key))) {
       const data = {
         name: key,
         url: `/uploads/${key}`,
@@ -68,20 +76,42 @@ export const createFile = async ({ input }) => {
       };
 
       const createdFile = await db.file.create({ data });
+
       await uploadFileToS3(key, file.buffer);
 
       console.log('Upload para o S3 concluído com sucesso.');
 
       return createdFile;
     } else {
-      console.log('O arquivo já existe no S3. Upload ignorado.');
-      return null;
+      const previousVersionBuffer = await getFileBufferFromS3(key);
+      const beBuffersEqual = bufferEqualConstantTime(previousVersionBuffer, file.buffer);
+
+      if (fileExistsInS3 && !beBuffersEqual) {
+        const newKey = `${name}-v${currentVersion + 1}`;
+        const data = {
+          name: newKey,
+          url: `/uploads/${newKey}`,
+          version: currentVersion + 1,
+        };
+
+        const createdFile = await db.file.create({ data });
+
+        await uploadFileToS3(newKey, file.buffer);
+
+        console.log('Upload da nova versão do arquivo.');
+
+        return createdFile;
+      } else {
+        console.log('O arquivo já existe no S3. Upload ignorado.');
+        return null;
+      }
     }
   } catch (error) {
     console.error('Erro ao escrever no sistema de arquivos:', error);
     throw error;
   }
 };
+
 
 export const updateFile = ({ id, input }) => {
   return db.file.update({

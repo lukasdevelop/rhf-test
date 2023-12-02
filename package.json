@@ -25,6 +25,9 @@
     "@aws-sdk/client-s3": "^3.462.0",
     "@types/react-dropzone": "^5.1.0",
     "aws-sdk": "^2.1509.0",
-    "diff": "^5.1.0"
+    "buffer-equal-constant-time": "^1.0.1",
+    "diff": "^5.1.0",
+    "get-stream": "^8.0.1",
+    "readable-stream": "^4.4.2"
   }
 }
