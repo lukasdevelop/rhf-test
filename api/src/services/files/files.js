@@ -12,7 +12,7 @@ const s3Client = new S3Client({
   region: 'us-east-1',
 });
 
-const bucketName = 'rhf-test-bucket';
+const bucketName = process.env.AWS_BUCKET_NAME
 
 
 export const files = () => {
