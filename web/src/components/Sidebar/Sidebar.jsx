@@ -13,6 +13,7 @@ const Sidebar = () => {
             </div>
 
             <footer>
+              <strong><a href="https://www.linkedin.com/in/lucas-amaral-dev/" target='_blank'>Meu LinkedIn</a></strong>
 
             </footer>
         </aside>
